@@ -30,5 +30,15 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'publish artifacts'
 
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: '8f859aab-8beb-488c-b66c-12da1a51779d'
+    appType: 'webApp'
+    WebAppName: 'WebProjectForPipelines'
+    packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
+    enableCustomDeployment: true
+    DeploymentType: 'webDeploy'
+
 
 
