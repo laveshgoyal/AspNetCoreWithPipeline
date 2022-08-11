@@ -14,7 +14,7 @@ variables:
 
   #Replace these variables to suit your application
   projectName: 'aspdotnetproject'
-  websiteName: 'aspnetonline'
+  websiteName: 'AspNetCoreWithPipeline'
   appPoolName: 'aspdotnetproject'
 
 stages:
@@ -67,7 +67,7 @@ stages:
        resourceType: VirtualMachine
      variables:
      - name: websitePhysicalPath
-       value: '%SystemDrive%\inetpub\wwwroot\$(websiteName)'
+       value: 'C:\inetpub\wwwroot\AspNetCoreWithPipeline'
 
      strategy:
       runOnce:
@@ -77,11 +77,11 @@ stages:
             inputs:            
               IISDeploymentType: 'IISWebsite'
               ActionIISWebsite: 'CreateOrUpdateWebsite'
-              WebsiteName: '$(websiteName)'
-              WebsitePhysicalPath: '$(websitePhysicalPath)'
+              WebsiteName: 'AspNetCoreWithPipeline'
+              WebsitePhysicalPath: 'C:\inetpub\wwwroot\AspNetCoreWithPipeline'
               WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
               CreateOrUpdateAppPoolForWebsite: true
-              AppPoolNameForWebsite: '$(appPoolName)'
+              AppPoolNameForWebsite: 'DefaultAppPool'
               DotNetVersionForWebsite: 'No Managed Code'
               PipeLineModeForWebsite: 'Integrated'
               AppPoolIdentityForWebsite: 'ApplicationPoolIdentity'
@@ -101,5 +101,5 @@ stages:
                   }
           - task: IISWebAppDeploymentOnMachineGroup@0
             inputs:
-              WebSiteName: '$(websiteName)'
-              Package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/$(projectName).zip'
+              WebSiteName: 'AspNetCoreWithPipeline'
+              Package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/AspNetCoreWithPipeline.zip'
